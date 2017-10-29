@@ -1,0 +1,25 @@
+.table-disp, .App .header {
+  display: table; }
+
+.App {
+  height: 100vh; }
+  .App .header {
+    width: 100vw;
+    height: 10vh; }
+  .App .body {
+    display: grid;
+    grid-template-columns: 33.3vw 33.3vw 33.3vw; }
+  .App .h2 {
+    font-size: 2em; }
+  .App .h3 {
+    font-size: 1.3em; }
+
+.cent-hor {
+  text-align: center; }
+
+.center {
+  vertical-align: middle;
+  display: table-cell; }
+
+.flexAll {
+  display: block; }

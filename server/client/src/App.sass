@@ -1,1 +1,32 @@
+$secondary-color : antiquewhite
+$primary-color : black
+$sub-prim-color : rgba(0, 0, 0, .38)
 
+.table-disp
+  display: table
+
+.App
+  height: 100vh
+  .header
+    @extend  .table-disp
+    width: 100vw
+    height: 10vh
+  .body
+    display: grid
+    grid-template-columns: 33.3vw 33.3vw 33.3vw
+
+  .h2
+    font-size: 2em
+  .h3
+    font-size: 1.3em
+
+.cent-hor
+  text-align: center
+
+.center
+  vertical-align: middle
+  display: table-cell
+
+
+.flexAll
+  display: block

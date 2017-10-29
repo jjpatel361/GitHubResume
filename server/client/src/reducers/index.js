@@ -1,4 +1,9 @@
 import { combineReducers } from 'redux';
+import numberOfRepos from './fetchAllRepos';
+import fetchUser from './fetchUser';
 
-const reducers = combineReducers({});
-export default reducers;
+const rootReducer = combineReducers({
+	fetchRepos: numberOfRepos,
+	user: fetchUser
+});
+export default rootReducer;
