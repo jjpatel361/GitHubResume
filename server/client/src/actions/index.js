@@ -1,14 +1,18 @@
-import { FETCH_REPOS, FETCH_USER } from './types';
+import { FETCH_REPOS, FETCH_USER, FETCH_LANGS } from './types';
 
 const BASE_GITHUB_URL = 'https://api.github.com/';
 const headers = {
-	headers: { Authorization: 'token 174978a4fe7ace02cf33a8357e24bf1ab3ec2ca2' }
+	headers: { Authorization: 'token 024c7d019f0c49bd7098522a7df8fdbe431c1f03' }
 };
 
 const axios = require('axios');
 
 export const setUsername = name => async dispatch => {
-	Promise.all([getAllRepos(name), getUserObject(name)]).then(results => {
+	Promise.all([
+		getAllRepos(name),
+		getUserObject(name),
+		getLangs(name)
+	]).then(results => {
 		dispatch({
 			type: FETCH_REPOS,
 			payload: results[0]
@@ -16,6 +20,10 @@ export const setUsername = name => async dispatch => {
 		dispatch({
 			type: FETCH_USER,
 			payload: results[1]
+		});
+		dispatch({
+			type: FETCH_LANGS,
+			payload: results[2]
 		});
 	});
 };
@@ -29,4 +37,12 @@ const getAllRepos = name => {
 
 const getUserObject = name => {
 	return axios.get(`${BASE_GITHUB_URL}users/${name}`, headers);
+};
+
+const getLangs = name => {
+	return axios.get(`${BASE_GITHUB_URL}users/${name}/repos`).then(result => {
+		return result.data.map(repo => {
+			return axios.get(`${repo.languages_url}`);
+		});
+	});
 };

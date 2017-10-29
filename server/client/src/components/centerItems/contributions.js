@@ -3,10 +3,6 @@ import { Container, Statistic } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 class Contribs extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	getForked = data => {
 		return data.filter(dat => {
 			return dat.fork;
@@ -22,16 +18,26 @@ class Contribs extends Component {
 	renderProps() {
 		if (this.props.repos) {
 			return (
-				<Statistic>
-					<Statistic.Value>
-						{this.getOwned(this.props.repos).length}
-					</Statistic.Value>
-					<Statistic.Label>Number of Owned Repos</Statistic.Label>
-					<Statistic.Value>
-						{this.getForked(this.props.repos).length}
-					</Statistic.Value>
-					<Statistic.Label>Number of Fork Repos</Statistic.Label>
-				</Statistic>
+				<div>
+					<Statistic.Group>
+						<Statistic>
+							<Statistic.Value>
+								{this.getOwned(this.props.repos).length}
+							</Statistic.Value>
+							<Statistic.Label>Owned Repos</Statistic.Label>
+						</Statistic>
+						<Statistic>
+							<Statistic.Value>
+								{this.getForked(this.props.repos).length}
+							</Statistic.Value>
+							<Statistic.Label>Fork Repos</Statistic.Label>
+						</Statistic>
+						<Statistic>
+							<Statistic.Value>{this.props.repos.length}</Statistic.Value>
+							<Statistic.Label>Total Repos</Statistic.Label>
+						</Statistic>
+					</Statistic.Group>
+				</div>
 			);
 		}
 	}

@@ -1,32 +1,16 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import { Card, Label } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
-export default class Skills extends Component {
-	state = {
-		panels: [
-			{
-				type: 'HTML5'
-			},
-			{
-				type: 'CSS3'
-			},
-			{
-				type: 'JavaScript'
-			}
-		]
+class Skills extends Component {
+	renderList = () => {
+		if (this.props.languages) {
+			return this.props.languages.map(lang => {
+				return <Label>{lang}</Label>;
+			});
+		}
 	};
-
-	renderList = skills => {
-		return skills.map(skill => {
-			return (
-				<Label key={skill.type} size="large">
-					{skill.type}
-				</Label>
-			);
-		});
-	};
-
-	componentDidMount() {}
 
 	render() {
 		const { Content } = Card;
@@ -35,8 +19,15 @@ export default class Skills extends Component {
 				<Content>
 					<strong className="h3">Languages</strong>
 				</Content>
-				<Content>{this.renderList(this.state.panels)}</Content>
+				<Content>{this.renderList()}</Content>
 			</Card>
 		);
 	}
 }
+
+function mapStateToProps({ langs }) {
+	const lang = _.keys(langs.data);
+	return { languages: lang };
+}
+
+export default connect(mapStateToProps)(Skills);
