@@ -12,7 +12,7 @@ export default class LeftSidebar extends Component {
 	render() {
 		return (
 			<Container>
-				<NameCard />
+				<NameCard auth={this.props.auth} />
 				<Skills />
 			</Container>
 		);

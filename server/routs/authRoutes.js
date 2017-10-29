@@ -1,6 +1,5 @@
 const passport = require('passport');
-const githubStrategy = require('passport-github2').Strategy;
-const user = require('mongoose').model('users');
+
 module.exports = app => {
 	app.get(
 		'/auth',
@@ -9,12 +8,17 @@ module.exports = app => {
 
 	app.get(
 		'/auth/callback',
-		passport.authenticate('github', { failureRedirect: '/login' }),
+		passport.authenticate('github', { failureRedirect: '/' }),
 		function(req, res) {
-			res.redirect('/');
+			res.redirect('/home');
 		}
 	);
 	app.get('/api/me', (req, res) => {
 		res.send(req.user);
+	});
+
+	app.get('/api/logout', (req, res) => {
+		req.logout();
+		res.redirect('/');
 	});
 };

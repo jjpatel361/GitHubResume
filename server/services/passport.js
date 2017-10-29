@@ -21,7 +21,6 @@ passport.use(
 			callbackURL: '/auth/callback'
 		},
 		async (accessToken, refreshToken, profile, done) => {
-			console.log(profile._json);
 			const existingUser = await User.findOne({
 				providerId: profile.id
 			});

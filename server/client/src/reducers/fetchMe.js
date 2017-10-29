@@ -3,7 +3,9 @@ import { FETCH_ME } from '../actions/types';
 export default function fetchMe(state = null, action) {
 	switch (action.type) {
 		case FETCH_ME:
-			return action.payload || false;
+			if (action.payload.data !== '') {
+				return action.payload;
+			} else return false;
 		default:
 			return state;
 	}

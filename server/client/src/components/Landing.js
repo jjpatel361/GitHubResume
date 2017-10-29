@@ -17,14 +17,19 @@ class Landing extends Component {
 			case false:
 				return (
 					<Container>
-						<Image src="https://i1.wp.com/blog.rapidapi.com/wp-content/uploads/2017/01/octocat.gif?fit=800%2C600" />
-						<Button secondary>Login with GitHub </Button>
+						<Image
+							src="https://i1.wp.com/blog.rapidapi.com/wp-content/uploads/2017/01/octocat.gif?fit=800%2C600"
+							className="center-fix"
+						/>
+						<Button secondary as="button" href="/auth/">
+							Login with GitHub
+						</Button>
 					</Container>
 				);
 			default:
 				return (
 					<Container className="body">
-						<LeftSidebar />
+						<LeftSidebar auth={this.props.auth} />
 						<Center />
 					</Container>
 				);
@@ -37,7 +42,6 @@ class Landing extends Component {
 }
 
 function mapStateToProps({ auth }) {
-	console.log(auth);
 	return { auth };
 }
 

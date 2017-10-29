@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import { Card, Label } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
@@ -7,7 +6,7 @@ class Skills extends Component {
 	renderList = () => {
 		if (this.props.languages) {
 			return this.props.languages.map(lang => {
-				return <Label>{lang}</Label>;
+				return <Label className="margin5">{lang}</Label>;
 			});
 		}
 	};
@@ -26,8 +25,7 @@ class Skills extends Component {
 }
 
 function mapStateToProps({ langs }) {
-	const lang = _.keys(langs.data);
-	return { languages: lang };
+	return { languages: langs.destArray };
 }
 
 export default connect(mapStateToProps)(Skills);

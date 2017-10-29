@@ -3,10 +3,10 @@ import './App.css';
 import Header from './components/header';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Landing from './components/Landing';
-import { Container } from 'semantic-ui-react';
+import { Container, Image, Button } from 'semantic-ui-react';
+import { bindActionCreators } from 'redux';
 import { fetchMe } from './actions';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 class App extends Component {
 	componentDidMount() {
@@ -19,9 +19,22 @@ class App extends Component {
 				<BrowserRouter>
 					<Switch>
 						<Route
-							path="/"
+							path="/home"
 							component={() => {
 								return <Landing />;
+							}}
+						/>
+						<Route
+							path="/"
+							component={() => {
+								return (
+									<Container>
+										<Image src="https://i1.wp.com/blog.rapidapi.com/wp-content/uploads/2017/01/octocat.gif?fit=800%2C600" />
+										<Button secondary as="button" href="/auth/">
+											Login with GitHub
+										</Button>
+									</Container>
+								);
 							}}
 						/>
 					</Switch>

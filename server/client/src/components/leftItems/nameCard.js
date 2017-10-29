@@ -1,41 +1,51 @@
 import React, { Component } from 'react';
 import { Card, Icon, Image } from 'semantic-ui-react';
 import { connect } from 'react-redux';
+import { setUsername } from '../../actions';
+import { bindActionCreators } from 'redux';
 
 class NameCard extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		this.state = { data: this.props.auth.data };
+	}
+
+	componentDidMount() {
+		this.props.setUsername(this.state.data.username);
 	}
 
 	renderComponent() {
-		if (this.props.username) {
-			const { Meta, Content } = Card;
-			return (
-				<Card raised>
-					<Image src={this.props.avatar} />
-					<Content>
-						<strong className="h2">{this.props.displayName}</strong>
-						<Meta>
-							<span>
-								<Icon name="marker" />
-								{this.props.location}
-							</span>
-							<br />
-							<span>
-								<Icon name="at" />
-								{this.props.username}
-							</span>
-							<br />
-							<span>
-								<Icon name="world" />
-								{this.props.blog}
-							</span>
-						</Meta>
-					</Content>
-				</Card>
-			);
+		let data;
+		if (this.props.user) {
+			data = this.props.user;
+		} else {
+			data = this.state.data;
 		}
+		const { Meta, Content } = Card;
+		return (
+			<Card raised>
+				<Image src={data.avatar} />
+				<Content>
+					<strong className="h2">{data.displayName}</strong>
+					<Meta>
+						<span>
+							<Icon name="marker" />
+							{data.location}
+						</span>
+						<br />
+						<span>
+							<Icon name="at" />
+							{data.username}
+						</span>
+						<br />
+						<span>
+							<Icon name="world" />
+							{data.blog}
+						</span>
+					</Meta>
+				</Content>
+			</Card>
+		);
 	}
 
 	render() {
@@ -46,14 +56,23 @@ class NameCard extends Component {
 function mapStateToProps({ user }) {
 	if (user.data) {
 		return {
-			avatar: user.data.avatar_url,
-			location: user.data.location,
-			displayName: user.data.name,
-			email: user.data.email,
-			username: user.data.login,
-			blog: user.data.blog
+			user: {
+				avatar: user.data.avatar_url,
+				location: user.data.location,
+				displayName: user.data.name,
+				email: user.data.email,
+				username: user.data.login,
+				blog: user.data.blog,
+				bio: user.data.bio
+			}
 		};
+	} else {
+		return {};
 	}
 }
 
-export default connect(mapStateToProps)(NameCard);
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ setUsername }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NameCard);
