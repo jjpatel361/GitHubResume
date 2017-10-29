@@ -1,4 +1,4 @@
-import { FETCH_REPOS, FETCH_USER, FETCH_LANGS } from './types';
+import { FETCH_REPOS, FETCH_USER, FETCH_LANGS, FETCH_ME } from './types';
 
 const BASE_GITHUB_URL = 'https://api.github.com/';
 const headers = {
@@ -25,6 +25,15 @@ export const setUsername = name => async dispatch => {
 			type: FETCH_LANGS,
 			payload: results[2]
 		});
+	});
+};
+
+export const fetchMe = async dispatch => {
+	const req = await axios.get('/api/me');
+	console.log(req);
+	dispatch({
+		type: FETCH_ME,
+		payload: req
 	});
 };
 

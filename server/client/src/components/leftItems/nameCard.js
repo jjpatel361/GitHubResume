@@ -26,6 +26,11 @@ class NameCard extends Component {
 								<Icon name="at" />
 								{this.props.username}
 							</span>
+							<br />
+							<span>
+								<Icon name="world" />
+								{this.props.blog}
+							</span>
 						</Meta>
 					</Content>
 				</Card>
@@ -45,7 +50,8 @@ function mapStateToProps({ user }) {
 			location: user.data.location,
 			displayName: user.data.name,
 			email: user.data.email,
-			username: user.data.login
+			username: user.data.login,
+			blog: user.data.blog
 		};
 	}
 }
